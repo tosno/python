@@ -1,14 +1,12 @@
-ospf_route = "       10.0.24.0/24 [110/41] via 10.0.13.3, 3d18h, FastEthernet0/0"
-ospf_value = ospf_route.strip().split()
-ospf_value.remove('via')
-template = """
-Prefix                {}
-AD/Metric             {}
-Next-Hop              {}
-Last update           {}
-Outbound Interface    {}
-"""
-print(template.format(ospf_value[0], ospf_value[1], ospf_value[2], ospf_value[3], ospf_value[4]))
+ip = '192.168.3.1'
+ip = ip.split('.')
+ip_template = '''
+{0:<8}  {1:<8}  {2:<8}  {3:<8}
+{0:08b}  {1:08b}  {2:08b}  {3:08b}'
+'''
+print(ip_template.format(int(ip[0]), int(ip[1]), int(ip[2]), int(ip[3])))
+
+
 
 
 
