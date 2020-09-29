@@ -1,10 +1,31 @@
-ip = '192.168.3.1'
-ip = ip.split('.')
-ip_template = '''
-{0:<8}  {1:<8}  {2:<8}  {3:<8}
-{0:08b}  {1:08b}  {2:08b}  {3:08b}'
-'''
-print(ip_template.format(int(ip[0]), int(ip[1]), int(ip[2]), int(ip[3])))
+london_co = {
+    "r1": {
+        "location": "21 New Globe Walk",
+        "vendor": "Cisco",
+        "model": "4451",
+        "ios": "15.4",
+        "ip": "10.255.0.1"
+    },
+    "r2": {
+        "location": "21 New Globe Walk",
+        "vendor": "Cisco",
+        "model": "4451",
+        "ios": "15.4",
+        "ip": "10.255.0.2"
+    },
+    "sw1": {
+        "location": "21 New Globe Walk",
+        "vendor": "Cisco",
+        "model": "3850",
+        "ios": "3.6.XE",
+        "ip": "10.255.0.101",
+        "vlans": "10,20,30",
+        "routing": True
+    }
+}
+router = input('Введите имя устройства: ')
+key = input('Введите имя параметра ({}): '.format(', '.join(list(london_co[router].keys()))))
+print(london_co[router][key])
 
 
 
