@@ -1,22 +1,22 @@
-ip_address = input('Введите IP адрес: ')
-ip = ip_address.split('/')[0].split('.')
-mask = int(ip_address.split('/')[1])
-mask_bit = list('1' * mask + '0' * (32-mask))
-mask_oct = [''.join(mask_bit[0:8]), ''.join(mask_bit[8:16]), ''.join(mask_bit[16:24]), ''.join(mask_bit[24:32])]
-ip_template = '''
-Network:
-{0:<8}  {1:<8}  {2:<8}  {3:<8}
-{0:08b}  {1:08b}  {2:08b}  {3:08b}
-'''
-print(ip_template.format(int(ip[0]), int(ip[1]), int(ip[2]), int(ip[3])))
-print(f'''
-Mask:
-/{mask}
-{int(mask_oct[0], 2):<8}  {int(mask_oct[1], 2):<8}  {int(mask_oct[2], 2):<8}  {int(mask_oct[3], 2):<8}
-{int(mask_oct[0], 2):08b}  {int(mask_oct[1], 2):08b}  {int(mask_oct[2], 2):08b}  {int(mask_oct[3], 2):08b}
-''')
-
-
-
-
+access_template = [
+    "Введите номер VLAN",
+    "switchport mode access", "switchport access vlan {}",
+    "switchport nonegotiate", "spanning-tree portfast",
+    "spanning-tree bpduguard enable"
+]
+trunk_template = [
+    "Введите разрешенные VLANы",
+    "switchport trunk encapsulation dot1q", "switchport mode trunk",
+    "switchport trunk allowed vlan {}"
+]
+config = {
+    'access': access_template,
+    'trunk': trunk_template
+    }
+mode = input('Введите режим работы интерфейса ({}): '.format('/'.join(list(config.keys()))))
+int = input('Введите тип и номер интерфейса: ')
+vlan = input('{}: '.format(config[mode][0]))
+config_str = '\n'.join(config[mode][1:])
+print('interface {}'.format(int))
+print(config_str.format(vlan))
 
