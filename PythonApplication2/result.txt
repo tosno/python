@@ -1,0 +1,405 @@
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service unsupported-transceiver
+!
+hostname cs3560X-obukhovo-stantsiya.metro
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging buffered 64000
+no logging console
+no logging monitor
+enable secret 5 $1$1pw.$kh3OXJDW2skfvOX/Y15OM/
+!
+username mango privilege 15 secret 5 $1$7m49$jeEMEnlgWNQnQkjrp3heO.
+aaa new-model
+!
+!
+aaa group server tacacs+ sats-noc
+ server 172.31.192.53
+!
+aaa authentication login default group sats-noc local
+aaa authentication login CON local group sats-noc
+aaa authorization console
+aaa authorization exec default group sats-noc local 
+aaa authorization exec CON local group sats-noc 
+aaa accounting send stop-record authentication failure
+aaa accounting exec default start-stop group sats-noc
+aaa accounting commands 0 default start-stop group sats-noc
+aaa accounting commands 1 default start-stop group sats-noc
+aaa accounting commands 2 default start-stop group sats-noc
+aaa accounting commands 3 default start-stop group sats-noc
+aaa accounting commands 4 default start-stop group sats-noc
+aaa accounting commands 5 default start-stop group sats-noc
+aaa accounting commands 6 default start-stop group sats-noc
+aaa accounting commands 7 default start-stop group sats-noc
+aaa accounting commands 8 default start-stop group sats-noc
+aaa accounting commands 9 default start-stop group sats-noc
+aaa accounting commands 10 default start-stop group sats-noc
+aaa accounting commands 11 default start-stop group sats-noc
+aaa accounting commands 12 default start-stop group sats-noc
+aaa accounting commands 13 default start-stop group sats-noc
+aaa accounting commands 14 default start-stop group sats-noc
+aaa accounting commands 15 default start-stop group sats-noc
+aaa accounting network default start-stop group sats-noc
+aaa accounting connection default start-stop group sats-noc
+aaa accounting system default start-stop group sats-noc
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone MSK 3 0
+system mtu routing 1500
+!
+!
+!
+no ip domain-lookup
+vtp mode transparent
+!
+no mls qos rewrite ip dscp
+!
+!
+!
+!
+!
+!
+spanning-tree mode mst
+spanning-tree extend system-id
+no spanning-tree vlan 1-4094
+!
+!
+!
+!
+!
+no errdisable detect cause gbic-invalid
+errdisable recovery cause udld
+errdisable recovery cause bpduguard
+errdisable recovery cause security-violation
+errdisable recovery cause channel-misconfig (STP)
+errdisable recovery cause pagp-flap
+errdisable recovery cause dtp-flap
+errdisable recovery cause link-flap
+errdisable recovery cause sfp-config-mismatch
+errdisable recovery cause gbic-invalid
+errdisable recovery cause l2ptguard
+errdisable recovery cause psecure-violation
+errdisable recovery cause port-mode-failure
+errdisable recovery cause dhcp-rate-limit
+errdisable recovery cause pppoe-ia-rate-limit
+errdisable recovery cause mac-limit
+errdisable recovery cause vmps
+errdisable recovery cause storm-control
+errdisable recovery cause inline-power
+errdisable recovery cause arp-inspection
+errdisable recovery cause loopback
+errdisable recovery cause small-frame
+errdisable recovery cause psp
+errdisable recovery interval 600
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 386
+ name MTS
+!
+vlan 999
+ name mgmt_KASIP2
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/1
+ description Teletax
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/2
+ description MTS
+ switchport access vlan 386
+ switchport mode dot1q-tunnel
+ switchport nonegotiate
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/3
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/4
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/5
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/6
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/7
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/8
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/9
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/10
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/11
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/12
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/13
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/14
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/15
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/16
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/17
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/18
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/19
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/20
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/21
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/22
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/23
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/24
+ shutdown
+ storm-control broadcast level pps 150
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/1
+!
+interface GigabitEthernet1/2
+!
+interface GigabitEthernet1/3
+ description s85-obuhovo.metro
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,386,999
+ switchport mode trunk
+ switchport nonegotiate
+ spanning-tree bpdufilter enable
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/4
+!
+interface TenGigabitEthernet1/1
+!
+interface TenGigabitEthernet1/2
+!
+interface Vlan1
+ ip address 172.18.4.51 255.255.255.0
+ no ip redirects
+ no ip proxy-arp
+!
+interface Vlan999
+ ip address 172.18.5.51 255.255.255.0
+ no ip redirects
+ no ip proxy-arp
+!
+ip default-gateway 172.18.5.80
+!
+no ip http server
+no ip http secure-server
+!
+!
+logging host 172.31.192.34
+logging host 172.31.192.52
+access-list 2 permit 172.31.172.0 0.0.0.255
+access-list 2 deny   any log
+access-list 2 remark SNMP
+!
+!
+snmp-server community smolnypbx1924 RO 2
+snmp-server contact ot.spb.ru; +78125767077
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps flowmon
+snmp-server enable traps transceiver all
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps eigrp
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps license
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps bgp
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps cluster
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps energywise
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps event-manager
+snmp-server enable traps hsrp
+snmp-server enable traps ipmulticast
+snmp-server enable traps ike policy add
+snmp-server enable traps ike policy delete
+snmp-server enable traps ike tunnel start
+snmp-server enable traps ike tunnel stop
+snmp-server enable traps ipsec cryptomap add
+snmp-server enable traps ipsec cryptomap delete
+snmp-server enable traps ipsec cryptomap attach
+snmp-server enable traps ipsec cryptomap detach
+snmp-server enable traps ipsec tunnel start
+snmp-server enable traps ipsec tunnel stop
+snmp-server enable traps ipsec too-many-sas
+snmp-server enable traps isis
+snmp-server enable traps msdp
+snmp-server enable traps power-ethernet police
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps cpu threshold
+snmp-server enable traps rep
+snmp-server enable traps ipsla
+snmp-server enable traps vstack
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps flash insertion removal
+snmp-server enable traps port-security
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps stackwise
+snmp-server enable traps alarms informational
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+snmp-server enable traps errdisable
+snmp-server enable traps vlan-membership
+tacacs-server host 172.31.192.53 key 7 080A4D5C24180B1307182F0D3E32
+!
+!
+!
+!
+line con 0
+ authorization exec CON
+ login authentication CON
+line vty 5 15
+!
+ntp server 172.31.172.15
+ntp server 172.31.192.30 prefer
+end
