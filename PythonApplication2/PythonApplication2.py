@@ -2,7 +2,7 @@ from operator import itemgetter
 with open('cam_table.txt') as f:
     vlans = []
     for line in f:
-        if line.find('DYNAMIC') != -1:
+        if 'DYNAMIC' in line:
             vlan = line.split()
             vlan.remove('DYNAMIC')
             vlan[0] = int(vlan[0])
@@ -11,6 +11,6 @@ with open('cam_table.txt') as f:
             continue
 vlans.sort(key=itemgetter(0))
 for i in vlans:
-    print('{:6}    {:14}    {:15}'.format(i[0], i[1], i[2]))
+    print('{:6}    {:14}    {:15}'.format(*i))
 
 
