@@ -1,0 +1,536 @@
+Building configuration...
+
+Current configuration : 13191 bytes
+!
+! Last configuration change at 12:05:03 MSK Fri Sep 25 2020 by nl
+! NVRAM config last updated at 12:07:01 MSK Fri Sep 25 2020 by nl
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service unsupported-transceiver
+no service dhcp
+!
+hostname cs3750-X.OMS.1fl
+!
+boot-start-marker
+boot-end-marker
+!
+logging count
+logging queue-limit 200
+logging buffered 409600
+no logging console
+enable secret 5 $1$d9CM$sM0gS3hOfqZ2i42TQYhUL.
+!
+username mango privilege 15 secret 5 $1$y.qB$AXYOAjS.36U25ruR9NyMn1
+username nl privilege 15 secret 5 $1$OU4X$XUP7e307JRvcKCloRxVuq.
+username sats2 privilege 15 secret 5 $1$BZtK$AKLWH/4y/VqQ/cWb2/YoC0
+username sats139 secret 5 $1$oQb4$NeNuqBo6JdUs7697SML.01
+username sats277 privilege 15 secret 5 $1$1AJF$TVO7wmeCnla8rfPMeKBU//
+username sats301 privilege 15 secret 5 $1$FsfE$dN0Rd7Xt6/IMlvZuwrcSv1
+username sats323 privilege 15 secret 5 $1$tw+b$b86.9M2i5U94QMREtgjzB/
+aaa new-model
+!
+!
+aaa group server tacacs+ SATS
+ server 192.168.160.49
+ server-private 192.168.160.49 key 7 0919195F49544043
+!
+aaa authentication login default group SATS local
+aaa authentication enable default group SATS enable
+aaa authorization console
+aaa authorization config-commands
+aaa authorization exec default group SATS local 
+aaa authorization commands 0 default group SATS local 
+aaa authorization commands 1 default group SATS local 
+aaa authorization commands 2 default group SATS local 
+aaa authorization commands 3 default group SATS local 
+aaa authorization commands 4 default group SATS local 
+aaa authorization commands 5 default group SATS local 
+aaa authorization commands 6 default group SATS local 
+aaa authorization commands 7 default group SATS local 
+aaa authorization commands 8 default group SATS local 
+aaa authorization commands 9 default group SATS local 
+aaa authorization commands 10 default group SATS local 
+aaa authorization commands 11 default group SATS local 
+aaa authorization commands 12 default group SATS local 
+aaa authorization commands 13 default group SATS local 
+aaa authorization commands 14 default group SATS local 
+aaa authorization commands 15 default group SATS local 
+aaa accounting send stop-record authentication failure
+aaa accounting exec default start-stop group SATS
+aaa accounting commands 0 default start-stop group SATS
+aaa accounting commands 1 default start-stop group SATS
+aaa accounting commands 2 default start-stop group SATS
+aaa accounting commands 3 default start-stop group SATS
+aaa accounting commands 4 default start-stop group SATS
+aaa accounting commands 5 default start-stop group SATS
+aaa accounting commands 6 default start-stop group SATS
+aaa accounting commands 7 default start-stop group SATS
+aaa accounting commands 8 default start-stop group SATS
+aaa accounting commands 9 default start-stop group SATS
+aaa accounting commands 10 default start-stop group SATS
+aaa accounting commands 11 default start-stop group SATS
+aaa accounting commands 12 default start-stop group SATS
+aaa accounting commands 13 default start-stop group SATS
+aaa accounting commands 14 default start-stop group SATS
+aaa accounting commands 15 default start-stop group SATS
+aaa accounting network default start-stop group SATS
+aaa accounting connection default start-stop group SATS
+aaa accounting system default start-stop group SATS
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone MSK 3 0
+switch 1 provision ws-c3750x-12s
+system mtu routing 1500
+ip routing
+!
+!
+no ip domain-lookup
+ip domain-name sats.spb.ru
+vtp mode transparent
+!
+!
+!
+!
+spanning-tree mode mst
+spanning-tree extend system-id
+!
+spanning-tree mst configuration
+ name bsam-86-sav-83
+!
+spanning-tree mst 0 priority 12288
+!
+!
+!
+no errdisable detect cause gbic-invalid
+no errdisable detect cause sfp-config-mismatch
+!
+vlan internal allocation policy ascending
+!
+vlan 4
+ name old-vlan
+!
+vlan 10
+ name GUP-ATS-HOSTING
+!
+vlan 11
+ name LOCAL.NETWORK
+!
+vlan 15
+ name Irinovsky-voip
+!
+vlan 18
+ name VoIP-CUST
+!
+vlan 20
+ name dmz_engelsa
+!
+vlan 27
+ name MGMT-vlan
+!
+vlan 28
+ name gup-nan:Wi-Fi:dhcp
+!
+vlan 40
+ name CC.VPLS.MGT
+!
+vlan 42
+ name VoIP-Aster-cs54
+!
+vlan 43
+ name OM_ESX
+!
+vlan 44
+ name gup-inet-asterisk
+!
+vlan 53 
+!
+vlan 54
+ name OMS
+!
+vlan 67 
+!
+vlan 70
+ name PRTG:Monitoring:10.5.70.0/26
+!
+vlan 71
+ name PRTG:Monitoring
+!
+vlan 85
+ name StendOIB
+!
+vlan 88
+ name m100-mgmt
+!
+vlan 90
+ name DWDM-LAN
+!
+vlan 92
+ name gor-emts-avaya
+!
+vlan 93,104 
+!
+vlan 105
+ name DT-RASTSO37
+!
+vlan 106
+ name RASCO-Engelsa-27
+!
+vlan 107-108 
+!
+vlan 142
+ name VPN.EMTS
+!
+vlan 144
+ name ATS-Smolnogo-DWDM-LAN-OMS-IRI
+!
+vlan 145
+ name MFC.MON
+!
+vlan 146
+ name gup-inet
+!
+vlan 149
+ name Berezin_SORM_test
+!
+vlan 200
+ name SORM
+!
+vlan 201,217 
+!
+vlan 220
+ name EMTS:Server_Audio
+!
+vlan 221
+ name VoIP2099:omskaya-20
+!
+vlan 230 
+!
+vlan 240
+ name SZI:PTN:videlen_se
+!
+vlan 302
+ name GSM.SATS.NW.LOC.SERV
+!
+vlan 309
+ name RSVO-IPTV-TEST
+!
+vlan 351 
+!
+vlan 496
+ name IP_tel_avaya_office
+!
+vlan 500
+ name wless:10.2.20.68/30
+!
+vlan 522 
+!
+vlan 645
+ name sorm
+!
+vlan 789
+ name Vodokan:Oms20:Lans41
+!
+vlan 790
+ name Vodokanal:Omskaya-20
+!
+vlan 791
+ name Vodokanal:Lanskoe-41
+!
+vlan 792 
+!
+vlan 819
+ name AIS:Server_KSOB
+!
+vlan 904
+ name OKSION:L2
+!
+vlan 992
+ name ECRS:Omskaya_d6
+!
+vlan 998
+ name Lintex:FVR
+!
+vlan 999
+ name Lintex:mgnt
+!
+vlan 1011
+ name EMTS:10.100.100.0/29
+!
+vlan 1102 
+!
+vlan 1565
+ name MGT-WIFI24:MKVN
+!
+vlan 1566
+ name AIS6445:MKVN
+!
+vlan 1567
+ name DT-MKSV2623:OpenVPN
+!
+vlan 3000,3114,3500-3501 
+!
+vlan 3777
+ name oss_net
+!         
+vlan 3900
+ name elections
+!
+vlan 4000
+ name multicast_source
+!
+vlan 4005
+ name RSVO.vid:L2.Kiev-28
+!
+vlan 4048
+ name asr9k-bsam-NE2-OMS
+!
+vlan 4049
+ name asr9k-sav-NE2-OMS
+!
+lldp run
+!
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ no ip route-cache cef
+ no ip route-cache
+ shutdown
+!
+interface GigabitEthernet1/0/1
+ description cs2960-S.OMS.1fl:Gi1/0/49
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,12,14,15,18,20,27,28,40,42-44,53,54,67,70
+ switchport trunk allowed vlan add 71,85,88,90,92,93,103-108,140-142,144-146
+ switchport trunk allowed vlan add 148,149,200,201,217,220,230,240,302,309,351
+ switchport trunk allowed vlan add 496,498,500,522,645,789-792,819,904,972,992
+ switchport trunk allowed vlan add 998,999,1011,1102,1451,1565-1567,2005,2014
+ switchport trunk allowed vlan add 3000,3114,3500,3501,3777,3800,3900,4000,4005
+ switchport trunk allowed vlan add 4048,4049
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+ description FREE(wascs2960-1.OMS.1fl:Gi0/1)
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,14,27,28,85,92,93,103,140-142,144,496,498
+ switchport trunk allowed vlan add 992,3000
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet1/0/3
+ description FREE(was_Asterisk_VoIP)
+ switchport access vlan 11
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet1/0/4
+ description FREE(was_cs2960-1.OMS.2fl:Gi0/2)
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,14,27
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet1/0/5
+ description FREE(was_cs2960-2.OMS.2fl:Gi0/2)
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,14,27,28,496
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet1/0/6
+ description Aster2(new)
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,18,42,44,142,146,972
+ switchport mode trunk
+ load-interval 30
+!
+interface GigabitEthernet1/0/7
+ description FREE(was_cs2960-1.OMS.3fl:Gi0/2)
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,14,27,28
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet1/0/8
+ description FREE(was_cs2960-2.OMS.3fl:Gi0/2)
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,14,27,28,142,496,2014
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet1/0/9
+ description Aster(new)
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,18,42,44,142,146,972
+ switchport mode trunk
+ load-interval 30
+!
+interface GigabitEthernet1/0/10
+ description FREE(was_Asterisk_LAN)
+ switchport access vlan 11
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet1/0/11
+ description FREE(was_Mirroring-to-OIB)
+ switchport mode access
+ load-interval 30
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigabitEthernet1/0/12
+ description FREE(was_mes2124p-omskaya-6a-2.sats.prm:Gi1/0/25)
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 11,14,27,28,104-106,220,240,309,351,792
+ switchport trunk allowed vlan add 1565-1567,4005
+ switchport mode trunk
+ load-interval 30
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigabitEthernet1/1/1
+ description FREE
+ switchport mode access
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigabitEthernet1/1/2
+ shutdown
+!
+interface GigabitEthernet1/1/3
+ shutdown
+!
+interface GigabitEthernet1/1/4
+ shutdown
+!
+interface TenGigabitEthernet1/1/1
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 4,11,12,14,15,18,20,27,28,40,42-44,53,54,67,70
+ switchport trunk allowed vlan add 71,85,88,90,92,93,103-108,142,144-146,149
+ switchport trunk allowed vlan add 200,201,217,220,230,240,302,309,351,498,500
+ switchport trunk allowed vlan add 522,645,789-792,819,904,972,992,998,999,1011
+ switchport trunk allowed vlan add 1102,1565-1567,3000,3114,3500,3501,3777,3800
+ switchport trunk allowed vlan add 4005,4048,4049
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface TenGigabitEthernet1/1/2
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan27
+ ip address 192.168.127.2 255.255.255.0
+ spanning-tree portfast
+!
+interface Vlan70
+ ip address 10.5.70.2 255.255.255.192
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 192.168.127.1
+ip route 10.0.0.0 255.255.224.0 10.5.70.1
+!
+logging esm config
+logging history size 500
+logging history debugging
+logging trap debugging
+logging facility local4
+logging 192.168.100.252
+logging 192.168.100.250
+access-list 10 remark SNMP-RO
+access-list 10 permit 172.31.172.0 0.0.0.255
+access-list 10 deny   any log
+access-list 11 remark MGMT
+access-list 11 permit 172.31.172.0 0.0.0.255
+access-list 11 permit 192.168.127.0 0.0.0.255
+access-list 11 deny   any log
+snmp-server community smolnypbx1924 RO 10
+snmp-server location Omskaya. d. 6, 1 fl., LAZ 112
+snmp-server contact ot@sats.spb.ru; +78125767077
+snmp-server system-shutdown
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps flowmon
+snmp-server enable traps transceiver all
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps eigrp
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps license
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps cluster
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps energywise
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps event-manager
+snmp-server enable traps hsrp
+snmp-server enable traps ipmulticast
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps cpu threshold
+snmp-server enable traps ipsla
+snmp-server enable traps vstack
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps flash insertion removal
+snmp-server enable traps port-security
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps stackwise
+snmp-server enable traps errdisable
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vlan-membership
+snmp-server host 192.168.100.250 SATS 
+snmp-server host 192.168.100.47 soho 
+snmp ifmib ifalias long
+snmp ifmib ifindex persist
+tacacs-server host 192.168.160.49 key 7 0253530D5B575870
+!
+!
+!
+alias exec t telnet
+!
+line con 0
+line vty 0 4
+ access-class 11 in
+ transport input telnet ssh
+line vty 5 15
+ access-class 11 in
+ transport input telnet ssh
+!
+!
+monitor session 1 source interface Gi1/0/10
+monitor session 1 destination interface Gi1/0/11
+ntp server 192.168.160.46
+ntp server 192.168.160.49
+ntp server 192.168.100.250 prefer
+end
