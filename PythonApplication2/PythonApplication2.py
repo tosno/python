@@ -20,8 +20,11 @@ def get_int_vlan_map(config_filename):
                 vlans = [] #список создается при совпадении "Ethernet"
             if "access vlan" in line:
                 mode_access[interface] = int(line.split()[-1])
+            if "mode access" in line:
+                if mode_access.get(interface) == None:
+                    mode_access[interface] = 1
             if "allowed vlan" in line:
                 vlans.append(line.split()[-1].split(',')) #формируется список списков для соответствующего INTERFACE
-    return mode_trunk
+    return mode_access
 print(get_int_vlan_map('cisco_config.txt'))
 
